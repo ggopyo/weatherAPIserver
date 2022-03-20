@@ -1,0 +1,105 @@
+3월 21, 2022 2:00:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 동구---------------------------------------------------
+지역명 : 대전광역시 동구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:00:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : -0.6, 1시간 강수량 : 0, 동서바람성분 : -0.2, 남북바람성분 : -0.2, 습도 : 87, 강수형태 : 0, 풍향 : 165, 풍속 : 1.1
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:00:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 중구---------------------------------------------------
+지역명 : 대전광역시 중구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:00:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : -0.6, 1시간 강수량 : 0, 동서바람성분 : -0.2, 남북바람성분 : -0.2, 습도 : 87, 강수형태 : 0, 풍향 : 165, 풍속 : 1.1
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:00:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 서구---------------------------------------------------
+지역명 : 대전광역시 서구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:00:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : 1, 1시간 강수량 : 0, 동서바람성분 : 0.8, 남북바람성분 : 0.8, 습도 : 75, 강수형태 : 0, 풍향 : 318, 풍속 : 1.2
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:00:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 유성구---------------------------------------------------
+지역명 : 대전광역시 유성구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:00:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : 1, 1시간 강수량 : 0, 동서바람성분 : 0.8, 남북바람성분 : 0.8, 습도 : 75, 강수형태 : 0, 풍향 : 318, 풍속 : 1.2
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:00:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 대덕구---------------------------------------------------
+지역명 : 대전광역시 대덕구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:00:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : -0.6, 1시간 강수량 : 0, 동서바람성분 : -0.2, 남북바람성분 : -0.2, 습도 : 87, 강수형태 : 0, 풍향 : 165, 풍속 : 1.1
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:10:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 동구---------------------------------------------------
+지역명 : 대전광역시 동구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:10:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : -0.6, 1시간 강수량 : 0, 동서바람성분 : -0.2, 남북바람성분 : -0.2, 습도 : 87, 강수형태 : 0, 풍향 : 165, 풍속 : 1.1
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:10:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 중구---------------------------------------------------
+지역명 : 대전광역시 중구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:10:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : -0.6, 1시간 강수량 : 0, 동서바람성분 : -0.2, 남북바람성분 : -0.2, 습도 : 87, 강수형태 : 0, 풍향 : 165, 풍속 : 1.1
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:10:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 서구---------------------------------------------------
+지역명 : 대전광역시 서구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:10:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : 1, 1시간 강수량 : 0, 동서바람성분 : 0.8, 남북바람성분 : 0.8, 습도 : 75, 강수형태 : 0, 풍향 : 318, 풍속 : 1.2
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:10:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 유성구---------------------------------------------------
+지역명 : 대전광역시 유성구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:10:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : 1, 1시간 강수량 : 0, 동서바람성분 : 0.8, 남북바람성분 : 0.8, 습도 : 75, 강수형태 : 0, 풍향 : 318, 풍속 : 1.2
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:10:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 대덕구---------------------------------------------------
+지역명 : 대전광역시 대덕구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:10:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : -0.6, 1시간 강수량 : 0, 동서바람성분 : -0.2, 남북바람성분 : -0.2, 습도 : 87, 강수형태 : 0, 풍향 : 165, 풍속 : 1.1
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:20:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 동구---------------------------------------------------
+지역명 : 대전광역시 동구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:20:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : -0.6, 1시간 강수량 : 0, 동서바람성분 : 0, 남북바람성분 : 0, 습도 : 85, 강수형태 : 0, 풍향 : 180, 풍속 : 1.1
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:20:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 중구---------------------------------------------------
+지역명 : 대전광역시 중구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:20:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : -0.6, 1시간 강수량 : 0, 동서바람성분 : 0, 남북바람성분 : 0, 습도 : 85, 강수형태 : 0, 풍향 : 180, 풍속 : 1.1
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:20:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 서구---------------------------------------------------
+지역명 : 대전광역시 서구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:20:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : 1, 1시간 강수량 : 0, 동서바람성분 : 0.9, 남북바람성분 : 0.9, 습도 : 75, 강수형태 : 0, 풍향 : 304, 풍속 : 1.1
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:20:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 유성구---------------------------------------------------
+지역명 : 대전광역시 유성구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:20:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : 1, 1시간 강수량 : 0, 동서바람성분 : 0.9, 남북바람성분 : 0.9, 습도 : 75, 강수형태 : 0, 풍향 : 304, 풍속 : 1.1
+---------------------------------------------------------------------------------------------------------
+
+3월 21, 2022 2:20:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: ----------------------------------------대전광역시 대덕구---------------------------------------------------
+지역명 : 대전광역시 대덕구, ResultCode : 00, resultMsg : NORMAL_SERVICE, numOfRows : 10, totalCount : 8, pageNo : 1
+3월 21, 2022 2:20:30 오전 com.example.mongodb.scheduling.ScheduledTask reportCurrentTime
+정보: 일자 : 20220321, baseTime : 0100, 기온 : -0.6, 1시간 강수량 : 0, 동서바람성분 : 0, 남북바람성분 : 0, 습도 : 85, 강수형태 : 0, 풍향 : 180, 풍속 : 1.1
+---------------------------------------------------------------------------------------------------------
+
