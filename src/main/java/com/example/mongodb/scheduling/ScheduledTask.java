@@ -12,22 +12,26 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.io.IOException;
+import java.util.logging.SimpleFormatter;
+
 import com.example.mongodb.model.DaejeonDistricts;
 import com.example.mongodb.model.WeatherItem;
 import com.example.mongodb.repository.ItemRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-
+@Slf4j
 public class ScheduledTask {
 
-    private static final Logger log = LoggerFactory.getLogger(ScheduledTask.class);
+
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
     private static String apiUrl = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst";// 날씨 공공데이터(초단기실황조회) URL
     private static String serviceKey = "y8YlOsRl3U%2BsizzI%2F8XAFyZ%2BEC2%2BpC%2BZKvmaydgd9gcLtLjRon2iL9FUHQkrvbOOKn%2F%2FI1AYuT41c1b9FWK8aw%3D%3D";
@@ -37,8 +41,13 @@ public class ScheduledTask {
 
     //    @Scheduled(fixedRate = 30000) // 초단기실황 호출 사이의 간격을 지정하여 호출도 가능함
     @Scheduled(cron = "30 0,10,20,30,40,50 * * * *") // 매 시간 10분 단위로 30초 이후 실행됨. 예) 1시 0분 30초, 2시 20분 30초 ...등
-    public void reportCurrentTime() {
-        weatherItemRepo.findAll();
+    public void reportCurrentTime() throws IOException{
+        Logger logger = Logger.getLogger(ScheduledTask.class.getName());
+        FileHandler fileHandler = new FileHandler("weatherAPIupdate.log", true);
+        logger.addHandler(fileHandler);//
+        SimpleFormatter formatter = new SimpleFormatter();
+        fileHandler.setFormatter(formatter);
+
         log.info("현재 시각 {}", dateFormat.format(new Date()));
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -48,9 +57,8 @@ public class ScheduledTask {
         // 예) 03:30분에 0300 호출 (x), 03:30분에 0200 호출(o),
         // 예) 03:40분에 0300 호출(o), 03:40분에 0200 호출(x)
 
-        int date = calendar.get(Calendar.DATE);
+
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
 
         LocalDate today = LocalDate.now();
         String baseDateReq = today.format(DateTimeFormatter.ofPattern("yyyyMMdd"));    //조회하고싶은 날짜
@@ -80,7 +88,7 @@ public class ScheduledTask {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Content-type", "application/json");
-                System.out.println("Response code: " + conn.getResponseCode());
+
                 BufferedReader rd;
                 rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuilder sb = new StringBuilder();
@@ -106,9 +114,8 @@ public class ScheduledTask {
 
                     ArrayList<JSONObject> listdata = new ArrayList<>();
                     JSONArray jArray = items.getJSONArray("item");
-                    System.out.println("---------" + districtName + "--------------");// 구 이름
-                    System.out.println("ResultCode : " + resultCode + ", resultMsg : " + resultMsg + ", numOfRows : " + numOfRows + ", totalCount : " + totalCount + "pageNo : " + pageNo);
-
+                    System.out.println();// 구 이름
+                   logger.info("----------------------------------------" + districtName + "---------------------------------------------------\n"+"지역명 : " + daejeonDistrict[i].getName()+ ", ResultCode : " + resultCode + ", resultMsg : " + resultMsg + ", numOfRows : " + numOfRows + ", totalCount : " + totalCount + ", pageNo : " + pageNo);
                     if (jArray != null) {
                         for (int j = 0; j < jArray.length(); j++) {
                             listdata.add(jArray.getJSONObject(j));
@@ -135,13 +142,12 @@ public class ScheduledTask {
                         else if (category.equals("WSD")) weatherItem.setWindSpeed(obsrValue);//풍속
                     }
 
-                    System.out.println("지역명 : " + weatherItem.getName() + ", 일자 : " + weatherItem.getBaseDate() + ", baseTime : " + weatherItem.getBaseTime() + ", 기온 : " + weatherItem.getTemperature()
+                     logger.info("일자 : " + weatherItem.getBaseDate() + ", baseTime : " + weatherItem.getBaseTime() + ", 기온 : " + weatherItem.getTemperature()
                             + ", 1시간 강수량 : " + weatherItem.getHourPrecipitation() + ", 동서바람성분 : " + weatherItem.getEastWestWind() + ", 남북바람성분 : " + weatherItem.getEastWestWind() + ", 습도 : " + weatherItem.getHumidity()
-                            + ", 강수형태 : " + weatherItem.getPrecipitationForm() + ", 풍향 : " + weatherItem.getWindDirection() + ", 풍속 : " + weatherItem.getWindSpeed());
-                    System.out.println("---------------------------------------------------------------------------------------------------------");
+                            + ", 강수형태 : " + weatherItem.getPrecipitationForm() + ", 풍향 : " + weatherItem.getWindDirection() + ", 풍속 : " + weatherItem.getWindSpeed()+"\n---------------------------------------------------------------------------------------------------------\n");
                     updateWeatherItems(weatherItem);
                 } else {
-                    System.out.println("resultCode : " + resultCode + ", resultMessage : " + resultMsg);
+                    logger.info("resultCode : " + resultCode + ", resultMessage : " + resultMsg);
                     // 오류 발생 시 다른 로직 구현이 필요할 지? 이메일로 받는다던지..
                 }
 
