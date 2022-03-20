@@ -7,10 +7,10 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import com.example.mongodb.model.DaejeonDistricts;
 import com.example.mongodb.model.WeatherItem;
@@ -22,8 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import static java.lang.String.valueOf;
 
 @Component
 
@@ -37,13 +35,10 @@ public class ScheduledTask {
     @Autowired
     ItemRepository weatherItemRepo;
 
-
-
     //    @Scheduled(fixedRate = 30000) // 초단기실황 호출 사이의 간격을 지정하여 호출도 가능함
-    @Scheduled(cron = "30 0,10,29,30,40,50 * * * *") // 매 시간 10분 단위로 30초 이후 실행됨. 예) 1시 0분 30초, 2시 20분 30초 ...등
+    @Scheduled(cron = "30 0,10,20,30,40,50 * * * *") // 매 시간 10분 단위로 30초 이후 실행됨. 예) 1시 0분 30초, 2시 20분 30초 ...등
     public void reportCurrentTime() {
         weatherItemRepo.findAll();
-
         log.info("현재 시각 {}", dateFormat.format(new Date()));
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -57,8 +52,8 @@ public class ScheduledTask {
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
-
-        String baseDateReq = "20220320";    //조회하고싶은 날짜
+        LocalDate today = LocalDate.now();
+        String baseDateReq = today.format(DateTimeFormatter.ofPattern("yyyyMMdd"));    //조회하고싶은 날짜
         String baseTimeReq = String.format("%02d%02d", hourOfDay, 0); // 조회하고 싶은 시간 // 0120,0330,1220,등...
         String type = "json";
         DaejeonDistricts[] daejeonDistrict = new DaejeonDistricts[5];
@@ -81,7 +76,7 @@ public class ScheduledTask {
                 urlBuilder.append("&" + URLEncoder.encode("base_time", "UTF-8") + "=" + URLEncoder.encode(baseTimeReq, "UTF-8")); /* 조회하고싶은 시간 AM 02시부터 3시간 단위 */
                 urlBuilder.append("&" + URLEncoder.encode("dataType", "UTF-8") + "=" + URLEncoder.encode(type, "UTF-8"));    /* 타입 */
                 URL url = new URL(urlBuilder.toString());
-                
+
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Content-type", "application/json");
@@ -95,58 +90,62 @@ public class ScheduledTask {
                 }
                 rd.close();
                 conn.disconnect();
-                String result = sb.toString(); 
+                String result = sb.toString();
 
                 JSONObject jsonObject = new JSONObject(result); // json 형태인 Data가 String 타입으로 되어있어 JSONObject로 변환해주는 작업 필요
                 JSONObject geoObject = jsonObject.getJSONObject("response");
                 JSONObject header = geoObject.getJSONObject("header");
                 String resultCode = header.getString("resultCode");
                 String resultMsg = header.getString("resultMsg");
+                if (resultCode.equals("00")) {
+                    JSONObject body = geoObject.getJSONObject("body");
+                    JSONObject items = body.getJSONObject("items");
+                    int pageNo = body.getInt("pageNo");
+                    int numOfRows = body.getInt("numOfRows");
+                    int totalCount = body.getInt("totalCount");
 
-                JSONObject body = geoObject.getJSONObject("body");
-                JSONObject items = body.getJSONObject("items");
-                int pageNo = body.getInt("pageNo");
-                int numOfRows = body.getInt("numOfRows");
-                int totalCount = body.getInt("totalCount");
+                    ArrayList<JSONObject> listdata = new ArrayList<>();
+                    JSONArray jArray = items.getJSONArray("item");
+                    System.out.println("---------" + districtName + "--------------");// 구 이름
+                    System.out.println("ResultCode : " + resultCode + ", resultMsg : " + resultMsg + ", numOfRows : " + numOfRows + ", totalCount : " + totalCount + "pageNo : " + pageNo);
 
-                ArrayList<JSONObject> listdata = new ArrayList<>();
-                JSONArray jArray = items.getJSONArray("item");
-                System.out.println("---------" + districtName + "--------------");// 구 이름
-                System.out.println(resultCode);
-                System.out.println(resultMsg);
-                System.out.println(numOfRows);
-                System.out.println(totalCount);
-                System.out.println(pageNo);
-                System.out.println("-------------------");
-                if (jArray != null) {
-                    for (int j = 0; j < jArray.length(); j++) {
-                        listdata.add(jArray.getJSONObject(j));
+                    if (jArray != null) {
+                        for (int j = 0; j < jArray.length(); j++) {
+                            listdata.add(jArray.getJSONObject(j));
+                        }
                     }
-                }
-                weatherItem.setName(daejeonDistrict[i].getName()); // 구 이름 입력
+                    weatherItem.setName(daejeonDistrict[i].getName()); // 구 이름 입력
 
-                for (int j = 0; j < listdata.size(); j++) {
-                    JSONObject item = listdata.get(j);
-                    String category = item.getString("category");//자료구분코드
-                    String obsrValue = item.getString("obsrValue");//실황 값
-                    String baseDateRes = item.getString("baseDate");//발표일자
-                    String baseTimeRes = item.getString("baseTime");//발표시각
-                    weatherItem.setBaseDate(baseDateRes);
-                    weatherItem.setBaseTime(baseTimeRes);
-                    System.out.println(obsrValue);
+                    for (int j = 0; j < listdata.size(); j++) {
+                        JSONObject item = listdata.get(j);
+                        String category = item.getString("category");//자료구분코드
+                        String obsrValue = item.getString("obsrValue");//실황 값
+                        String baseDateRes = item.getString("baseDate");//발표일자
+                        String baseTimeRes = item.getString("baseTime");//발표시각
+                        weatherItem.setBaseDate(baseDateRes);
+                        weatherItem.setBaseTime(baseTimeRes);
 
-                    if (category.equals("T1H")) weatherItem.setTemperature(obsrValue);//기온
-                    else if (category.equals("RN1")) weatherItem.setHourPrecipitation(obsrValue);//1시간 강수량
-                    else if (category.equals("UUU")) weatherItem.setEastWestWind(obsrValue);//동서바람성분
-                    else if (category.equals("VVV")) weatherItem.setSouthNorthWind(obsrValue);//남북바람성분
-                    else if (category.equals("REH")) weatherItem.setHumidity(obsrValue);//습도
-                    else if (category.equals("PTY")) weatherItem.setPrecipitationForm(obsrValue);//강수형태
-                    else if (category.equals("VEC")) weatherItem.setWindDirection(obsrValue);//풍향
-                    else if (category.equals("WSD")) weatherItem.setWindSpeed(obsrValue);//풍속
+                        if (category.equals("T1H")) weatherItem.setTemperature(obsrValue);//기온
+                        else if (category.equals("RN1")) weatherItem.setHourPrecipitation(obsrValue);//1시간 강수량
+                        else if (category.equals("UUU")) weatherItem.setEastWestWind(obsrValue);//동서바람성분
+                        else if (category.equals("VVV")) weatherItem.setSouthNorthWind(obsrValue);//남북바람성분
+                        else if (category.equals("REH")) weatherItem.setHumidity(obsrValue);//습도
+                        else if (category.equals("PTY")) weatherItem.setPrecipitationForm(obsrValue);//강수형태
+                        else if (category.equals("VEC")) weatherItem.setWindDirection(obsrValue);//풍향
+                        else if (category.equals("WSD")) weatherItem.setWindSpeed(obsrValue);//풍속
+                    }
+
+                    System.out.println("지역명 : " + weatherItem.getName() + ", 일자 : " + weatherItem.getBaseDate() + ", baseTime : " + weatherItem.getBaseTime() + ", 기온 : " + weatherItem.getTemperature()
+                            + ", 1시간 강수량 : " + weatherItem.getHourPrecipitation() + ", 동서바람성분 : " + weatherItem.getEastWestWind() + ", 남북바람성분 : " + weatherItem.getEastWestWind() + ", 습도 : " + weatherItem.getHumidity()
+                            + ", 강수형태 : " + weatherItem.getPrecipitationForm() + ", 풍향 : " + weatherItem.getWindDirection() + ", 풍속 : " + weatherItem.getWindSpeed());
+                    System.out.println("---------------------------------------------------------------------------------------------------------");
+                    updateWeatherItems(weatherItem);
+                } else {
+                    System.out.println("resultCode : " + resultCode + ", resultMessage : " + resultMsg);
+                    // 오류 발생 시 다른 로직 구현이 필요할 지? 이메일로 받는다던지..
                 }
-                updateWeatherItems(weatherItem);
+
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
